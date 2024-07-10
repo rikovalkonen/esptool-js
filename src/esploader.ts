@@ -1257,6 +1257,22 @@ export class ESPLoader {
   }
 
   /**
+   * Get the chip details
+   */
+  async getChipDetails(mode = "default_reset") {
+    await this.detectChip(mode);
+
+    const chip_details = [
+      "Chip is " + (await this.chip.getChipDescription(this)),
+      "Features: " + (await this.chip.getChipFeatures(this)),
+      "Crystal is " + (await this.chip.getCrystalFreq(this)) + "MHz",
+      "MAC: " + (await this.chip.readMac(this)),
+    ];
+
+    return chip_details;
+  }
+
+  /**
    * Get flash size bytes from flash size string.
    * @param {string} flashSize Flash Size string
    * @returns {number} Flash size bytes
